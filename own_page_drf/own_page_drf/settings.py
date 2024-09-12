@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 import environ
 import os
 import sys
+from datetime import timedelta
 
 from pathlib import Path
 
@@ -27,12 +28,15 @@ sys.path.insert(0, os.path.join(BASE_DIR,'apps'))
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = env('SECRET_KEY')
+#SECRET_KEY = env('SECRET_KEY')
+SECRET_KEY = 'django-insecure-jci8c9(x+%oha&-c@tg0v05t$qg+x^-s%dc!h0w6-7!qgay1sl'
+
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
 ALLOWED_HOSTS = []
 
+AUTH_USER_MODEL = 'users_app.User'
 
 # Application definition
 
@@ -44,8 +48,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
+    'drf_spectacular',
     'django_filters',
-    'markdownx',
+    #'markdownx',
     'corsheaders',
     'versatileimagefield',
     'model_utils',
@@ -53,6 +58,8 @@ INSTALLED_APPS = [
     #'drf_writable_nested',
     'constance',
     'constance.backends.database',
+    'users_app',
+    'posts_app',
 ]
 
 MIDDLEWARE = [
@@ -142,3 +149,23 @@ MEDIA_URL = '/media/'
 
 STATIC_ROOT = os.path.join(STATIC_DIR, 'static/')
 MEDIA_ROOT = os.path.join(STATIC_DIR, 'media/')
+
+REST_FRAMEWORK = {
+    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
+    "DEFAULT_PERMISSION_CLASSES": [
+        "rest_framework.permissions.AllowAny",
+    ],
+    "DEFAULT_AUTHENTICATION_CLASSES": (
+        "rest_framework_simplejwt.authentication.JWTAuthentication",
+        'rest_framework.authentication.SessionAuthentication',
+    ),
+    "DEFAULT_FILTER_BACKENDS": ("django_filters.rest_framework.DjangoFilterBackend",),
+    "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.LimitOffsetPagination",
+    "PAGE_SIZE": 10,
+
+}
+
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(days=14),
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=30),
+}
