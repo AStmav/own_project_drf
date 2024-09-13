@@ -51,6 +51,7 @@ INSTALLED_APPS = [
     'drf_spectacular',
     'django_filters',
     #'markdownx',
+    'ckeditor',
     'corsheaders',
     'versatileimagefield',
     'model_utils',
@@ -162,7 +163,18 @@ REST_FRAMEWORK = {
     "DEFAULT_FILTER_BACKENDS": ("django_filters.rest_framework.DjangoFilterBackend",),
     "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.LimitOffsetPagination",
     "PAGE_SIZE": 10,
+}
 
+CONSTANCE_ADDITIONAL_FIELDS = {
+    'language_select': ['django.forms.fields.ChoiceField', {
+        'widget': 'django.forms.Select',
+        'choices': (("EN", "English"), ("NO", "Norway"))
+    }],
+}
+
+CONSTANCE_BACKEND = 'constance.backends.database.DatabaseBackend'
+CONSTANCE_CONFIG = {
+    'LANGUAGE': ('EN', 'Select language', 'language_select'),
 }
 
 SIMPLE_JWT = {
