@@ -61,6 +61,8 @@ INSTALLED_APPS = [
     'constance.backends.database',
     'users_app',
     'posts_app',
+    'videos_app',
+    'files_app',
 ]
 
 MIDDLEWARE = [

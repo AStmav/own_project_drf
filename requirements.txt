@@ -12,3 +12,4 @@ drf-writable-nested
 django-constance[database]
 psycopg2-binary
 flake8
+drf-spectacular

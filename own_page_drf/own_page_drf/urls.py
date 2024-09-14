@@ -22,10 +22,13 @@ from rest_framework.routers import DefaultRouter
 
 from drf_spectacular.views import SpectacularAPIView, SpectacularRedocView, SpectacularSwaggerView
 from posts_app.views import PostViewSet
+from videos_app.views import VideoViewSet
+from files_app.views import FileViewSet
+
 router = DefaultRouter()
 router.register(r'posts_app', PostViewSet, basename='posts_app')
-# router.register(r'videos', VideoViewSet, basename='videos')
-# router.register(r'files', FilesViewSet, basename='files')
+router.register(r'videos_app', VideoViewSet, basename='videos_app')
+router.register(r'files_app', FileViewSet, basename='files_app')
 
 urlpatterns = [
     path('admin/', admin.site.urls),

@@ -1,17 +1,17 @@
 import uuid
 from django.db import models
 
-class File(models.Nodel):
-    title = models.CharField(max_length=256, default='No title')
-    file = models.FileField(upload_to='files')
+
+
+class Video(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    title = models.CharField(max_length=256, default="No title")
+    url = models.URLField(max_length=512)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
     class Meta:
         ordering = ['-created_at', '-updated_at']
 
-    def __str__(self):
+    def __str__(self) -> str:
         return self.title
-
-# Create your models here.
