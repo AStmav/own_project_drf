@@ -20,7 +20,7 @@ services:
       context: .
       dockerfile: ./docker/backend/Dockerfile
     volumes:
-      - ./own_page_drf:/code
+      - ./own_page_drf:/django_code
     env_file:
       - ./own_page_drf/.env
     command: >
