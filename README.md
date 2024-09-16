@@ -1,10 +1,25 @@
-# ## Стек технологий
-- Backend: Django 4.x, Django REST Framework 3.x
-- Аутентификация: JWT (Django Simple JWT) или Session-based Auth
-- База данных: PostgreSQL или SQLite (по умолчанию)
-- Документация API: Swagger/OpenAPI (drf-yasg)
-- Тестирование: Django Test Framework
+# API для личной страницы
+## Доступный функционал
 
+- **Создание постов**: Пользователи могут создавать новые посты с текстом и изображениями.
+- **Аутентификация**: Поддержка регистрации, входа и управления пользователями.
+- **Добавление изображений**: Возможность загрузки и управления изображениями в постах.
+- **Добавление файлов**: Загрузка файлов с ограничениями по типам и размерам в зависимости от уровня доступа пользователя.
+- **Фильтрация данных**: Возможность фильтрации данных в API для удобного поиска и сортировки.
+- **Управление настройками**: Настройки проекта управляются через базу данных.
+## Основной стек технологий для backend
+
+- **Django Rest Framework** 
+- **drf-spectacular**
+- **django-filters**
+- **CKEditor** 
+- **corsheaders**
+- **VersatileImageField**
+- **model-utils**
+- **Djoser**
+- **Constance**
+- **Constance Database Backend** 
+  
 ## Установка и запуск проекта
 
 ### Предварительные требования
@@ -17,48 +32,53 @@
 
 1. Клонируйте репозиторий:
 
-    
-    git clone https://github.com/your-username/your-project.git
+    ```bash
+    git clone https://github.com/AStmav/own_project_drf.git
     cd your-project
+    ```
     
 
 2. Создайте виртуальное окружение и активируйте его:
 
-    
+  ```bash
     python -m venv venv
-    source venv/bin/activate  # для Windows: venv\Scripts\activate
+    source venv/bin/activate
+ ```
+
     
 
 3. Установите зависимости:
 
-    
+    ```bash
     pip install -r requirements.txt
-    
+     ```
 
 4. Настройте переменные окружения (например, добавьте в проект файл .env):
 
+    ```bash
     - DEBUG: True/False
     - SECRET_KEY: Ваш секретный ключ
     - DATABASE_URL: Строка подключения к базе данных (если не используете SQLite)
     - ALLOWED_HOSTS: Разрешенные хосты
-
+     ```
 5. Выполните миграции базы данных:
 
-    
+   ```bash   
     python manage.py migrate
-    
+     ``` 
 
 6. Создайте суперпользователя:
 
-    
+   ```bash
     python manage.py createsuperuser
+   ``` 
     
 
 7. Запустите локальный сервер разработки:
 
-    
+ ```bash   
     python manage.py runserver
-    
+ ``` 
 
 8. Откройте API-документацию (если настроена):
 
