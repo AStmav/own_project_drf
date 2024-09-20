@@ -49,8 +49,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'drf_spectacular',
+    'rest_framework_simplejwt',
+    'rest_framework_simplejwt.token_blacklist',
     'django_filters',
-    #'markdownx',
     'ckeditor',
     'corsheaders',
     'versatileimagefield',
@@ -73,6 +74,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+     'corsheaders.middleware.CorsMiddleware',
 ]
 
 ROOT_URLCONF = 'own_page_drf.urls'
@@ -80,8 +82,8 @@ ROOT_URLCONF = 'own_page_drf.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
-        'APP_DIRS': True,
+        'DIRS': [BASE_DIR / 'templates'],  # Путь к глобальным шаблонам
+        'APP_DIRS': True,  # Включение поиска шаблонов в директориях приложений
         'OPTIONS': {
             'context_processors': [
                 'django.template.context_processors.debug',
@@ -92,6 +94,7 @@ TEMPLATES = [
         },
     },
 ]
+
 
 WSGI_APPLICATION = 'own_page_drf.wsgi.application'
 
@@ -147,6 +150,11 @@ USE_TZ = True
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+
+# Путь к директории, где будут собираться статика и медиа файлы
+
+
+
 STATIC_URL = '/static/'
 MEDIA_URL = '/media/'
 
@@ -180,6 +188,13 @@ CONSTANCE_CONFIG = {
 }
 
 SIMPLE_JWT = {
-    'ACCESS_TOKEN_LIFETIME': timedelta(days=14),
-    'REFRESH_TOKEN_LIFETIME': timedelta(days=30),
+
+    'ROTATE_REFRESH_TOKENS': False,
+    'BLACKLIST_AFTER_ROTATION': True,
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=5),
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
 }
+
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:3000",  # React
+]
