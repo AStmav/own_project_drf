@@ -1,16 +1,15 @@
 from django.contrib import admin
-from django.contrib.auth.admin import UserAdmin
+from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 
 from .models import User
 
 
-UserAdmin.list_display += ('info',)
-UserAdmin.fieldsets += (
-    ('Info', {
-        'fields':('info',)
-    }),
-)
+class CustomUserAdmin(BaseUserAdmin):
+    list_display = ["email", "is_staff"]
+    ordering = ["email"]
 
-admin.site.register(User, UserAdmin)
+admin.site.register(User, CustomUserAdmin)
+
+
 
 

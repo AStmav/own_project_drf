@@ -1,6 +1,7 @@
 import uuid
 
 from django.db import models
+from users_app.models import User
 
 from ckeditor.fields import RichTextField
 from versatileimagefield.fields import VersatileImageField
@@ -35,3 +36,29 @@ class PostImage(models.Model):
         else:
             res = self.image.url
         return res
+
+class Comment(models.Model):
+    post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='postcomment')
+    author = models.ForeignKey(User, on_delete=models.CASCADE)
+    content = models.TextField(max_length=255)
+    created_at = models.DateTimeField(auto_now_add=True)
+    parent = models.ForeignKey('self', null=True, blank=True, on_delete=models.CASCADE)
+    is_active = models.BooleanField(default=True)
+
+    class Meta:
+        ordering = ('-created_at',)
+
+    def __str__(self):
+        return f'Comment by {self.author} on {self.post}'
+
+    #Вложенные комментарии, возвращает все дочерние комментарии для данного комментария, которые указывают на него как на родителя
+    def children(self):
+        return Comment.objects.filter(parent=self)
+
+    #Проверяем имеет ли комментарий  родительский комментарий
+    @property
+    def is_parent(self):
+        if self.parent is not None:
+            return False
+        return True
+
